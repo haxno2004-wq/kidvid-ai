@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KidsVid AI – Make Fun Videos!</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Baloo+2:wght@400;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ── STARS BACKGROUND ── -->
+  <div class="stars-bg" id="starsBg"></div>
+
+  <!-- ── HEADER ── -->
+  <header>
+    <div class="logo">
+      <span class="logo-star">⭐</span>
+      <span class="logo-text">KidsVid <span class="logo-ai">AI</span></span>
+    </div>
+    <nav>
+      <a href="#create">Create</a>
+      <a href="#how">How it works</a>
+      <a href="#safety">Safety</a>
+    </nav>
+    <div class="safe-badge">🛡️ 100% Kid-Safe</div>
+  </header>
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow">✨ Free AI Video Maker for Kids</div>
+      <h1>Turn your ideas<br />into <span class="highlight">magical videos!</span></h1>
+      <p class="hero-sub">Type what you imagine — rockets, dinosaurs, friendly dragons — and watch it come to life! Safe, fun, and totally free.</p>
+      <a href="#create" class="btn-primary">🎬 Make My Video!</a>
+    </div>
+    <div class="hero-art">
+      <div class="floating-card card1">🦕 Dinosaur adventure</div>
+      <div class="floating-card card2">🚀 Space journey</div>
+      <div class="floating-card card3">🌈 Rainbow world</div>
+      <div class="big-emoji">🎥</div>
+    </div>
+  </section>
+
+  <!-- ── HOW IT WORKS ── -->
+  <section class="how" id="how">
+    <h2>How it works</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-icon">✏️</div>
+        <h3>Type your idea</h3>
+        <p>Describe a fun, friendly scene — like "a bunny jumping in flowers"</p>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step">
+        <div class="step-icon">🤖</div>
+        <h3>AI creates it</h3>
+        <p>Our safe AI turns your words into a short video clip just for you</p>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step">
+        <div class="step-icon">⬇️</div>
+        <h3>Download & share</h3>
+        <p>Save your video and share it with family — it's yours to keep!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CREATOR ── -->
+  <section class="creator" id="create">
+    <div class="creator-card">
+      <h2>🎬 Create Your Video</h2>
+      <p class="creator-sub">What would you like to see? (Keep it friendly and fun!)</p>
+
+      <!-- Age check -->
+      <div class="age-gate" id="ageGate">
+        <p>👋 Before we start — are you a kid (under 13)?</p>
+        <div class="age-buttons">
+          <button class="btn-yes" onclick="confirmAge(true)">Yes, I'm a kid! 🙋</button>
+          <button class="btn-no" onclick="confirmAge(false)">I'm a parent / adult</button>
+        </div>
+      </div>
+
+      <!-- Parent consent modal -->
+      <div class="modal-overlay" id="parentModal">
+        <div class="modal">
+          <h3>👨‍👩‍👦 Parent / Guardian Notice</h3>
+          <p>This platform creates AI-generated videos for children's entertainment only. By clicking <strong>Allow</strong>, you confirm that:</p>
+          <ul>
+            <li>You are a parent or guardian</li>
+            <li>You consent to your child using this tool</li>
+            <li>All content will remain family-friendly</li>
+          </ul>
+          <div class="modal-buttons">
+            <button class="btn-primary" onclick="parentConsent()">✅ Allow — Start Creating</button>
+            <button class="btn-ghost" onclick="denyConsent()">Leave this site</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main form (hidden until age confirmed) -->
+      <div class="form-area hidden" id="formArea">
+
+        <!-- Idea prompts -->
+        <div class="prompt-chips">
+          <span class="chip-label">Quick ideas:</span>
+          <button class="chip" onclick="setPrompt('A friendly dragon flying over a rainbow castle')">🐉 Dragon castle</button>
+          <button class="chip" onclick="setPrompt('Cute dinosaurs playing in a jungle')">🦕 Dino jungle</button>
+          <button class="chip" onclick="setPrompt('A bunny hopping through a flower field')">🐰 Bunny meadow</button>
+          <button class="chip" onclick="setPrompt('Astronaut cat floating in space among stars')">🚀 Space cat</button>
+          <button class="chip" onclick="setPrompt('A magical underwater world with friendly fish')">🐠 Ocean world</button>
+        </div>
+
+        <div class="input-group">
+          <label for="promptInput">Describe your video:</label>
+          <textarea
+            id="promptInput"
+            placeholder="Example: A happy puppy playing with colorful balloons in a sunny park…"
+            maxlength="200"
+            rows="3"
+            oninput="updateCharCount(this)"
+          ></textarea>
+          <div class="char-count"><span id="charCount">0</span>/200</div>
+        </div>
+
+        <!-- Style selector -->
+        <div class="style-selector">
+          <label>Video style:</label>
+          <div class="style-options">
+            <label class="style-opt">
+              <input type="radio" name="style" value="cartoon" checked />
+              <span>🎨 Cartoon</span>
+            </label>
+            <label class="style-opt">
+              <input type="radio" name="style" value="watercolor" />
+              <span>🖌️ Watercolor</span>
+            </label>
+            <label class="style-opt">
+              <input type="radio" name="style" value="claymation" />
+              <span>🧸 Claymation</span>
+            </label>
+            <label class="style-opt">
+              <input type="radio" name="style" value="pixel" />
+              <span>👾 Pixel art</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Safety checker display -->
+        <div class="safety-check hidden" id="safetyCheck">
+          <div class="safety-inner">
+            <span id="safetyIcon">🛡️</span>
+            <span id="safetyMsg">Checking your idea is safe…</span>
+          </div>
+        </div>
+
+        <button class="btn-primary btn-big" id="generateBtn" onclick="generateVideo()">
+          ✨ Generate My Video!
+        </button>
+
+        <!-- Progress -->
+        <div class="progress-area hidden" id="progressArea">
+          <div class="progress-label" id="progressLabel">🤖 AI is painting your video…</div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+          <div class="progress-tips">
+            <p id="funFact">Did you know? The first animated movie was made in 1937! 🎬</p>
+          </div>
+        </div>
+
+        <!-- Result -->
+        <div class="result-area hidden" id="resultArea">
+          <h3>🎉 Your video is ready!</h3>
+          <div class="video-wrapper">
+            <video id="resultVideo" controls playsinline loop></video>
+          </div>
+          <div class="result-actions">
+            <a id="downloadBtn" class="btn-primary" download="my-kidsvid.mp4">⬇️ Download Video</a>
+            <button class="btn-ghost" onclick="resetForm()">🔄 Make Another!</button>
+          </div>
+        </div>
+
+        <!-- Error -->
+        <div class="error-area hidden" id="errorArea">
+          <p id="errorMsg">Something went wrong. Please try again!</p>
+          <button class="btn-ghost" onclick="resetError()">Try Again</button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SAFETY SECTION ── -->
+  <section class="safety" id="safety">
+    <h2>🛡️ Safety is our top priority</h2>
+    <div class="safety-grid">
+      <div class="safety-item">
+        <div class="safety-icon">🚫</div>
+        <h3>Bad content blocked</h3>
+        <p>Every prompt is filtered for inappropriate words before anything is created</p>
+      </div>
+      <div class="safety-item">
+        <div class="safety-icon">👨‍👩‍👦</div>
+        <h3>Parent consent</h3>
+        <p>Adults acknowledge the child-safe purpose before any video is generated</p>
+      </div>
+      <div class="safety-item">
+        <div class="safety-icon">🤖</div>
+        <h3>Safe prompts only</h3>
+        <p>Prompts are automatically rewritten to enforce child-friendly, positive content</p>
+      </div>
+      <div class="safety-item">
+        <div class="safety-icon">📵</div>
+        <h3>No accounts needed</h3>
+        <p>No personal data collected — no sign-ups, no emails, no tracking</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-logo">⭐ KidsVid AI</div>
+    <p>Made with ❤️ for curious kids everywhere · Free forever · No ads · No sign-up</p>
+    <p class="footer-note">Powered by open-source AI · Content moderated for children aged 3–12</p>
+  </footer>
+
+  <script src="js/safety.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/stars.js"></script>
+</body>
+</html>
